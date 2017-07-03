@@ -2,7 +2,7 @@
 #define PI 3.14159265358979323846264338327950288
 #define numberOftimesCalibrated 2000
 
-unsigned long currentTime = 0;
+
 
 //Declaring some global variables
 int gyro_x, gyro_y, gyro_z;

@@ -4,11 +4,10 @@
 
 unsigned long CLOCK  = 9000;   //4000us = 250Hz
 
+unsigned long currentTime = 0;
+
 float Battery = 0.0;
 
-unsigned long Zone = 0;
-unsigned long helper = 0;
-int gameConstant = 0;
 
 void setup() {
 
@@ -35,12 +34,11 @@ void loop() {
 
 void reAdjustTimer() {
 
-  Zone = micros() - currentTime;
-  helper = currentTime;
+
+
+
 
   //Si tenim gran differencia, actualitzar el clock i despres calculateConstantsGyro();
-
-  currentTime = helper;
   while (micros() - currentTime < CLOCK);
   currentTime = micros();
 }
