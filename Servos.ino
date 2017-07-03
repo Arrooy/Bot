@@ -17,10 +17,11 @@ Adafruit_PWMServoDriver m = Adafruit_PWMServoDriver(); //Obrim wire 0x40
  void Bot(int freq) {
     m.begin();
     m.setPWMFreq(freq);
-    for(int i =  0;i<6;i++){
+    /*for(int i =  0;i<6;i++){
       Bot_move(i,IniciPos[i]);
       delay(w8);
-    }
+    }*/
+    Bot_apagarServo(1000,-1);
   }
 
   void Bot_update(int m0,int m1,int m2,int m3,int m4,int m5){
@@ -39,7 +40,7 @@ Adafruit_PWMServoDriver m = Adafruit_PWMServoDriver(); //Obrim wire 0x40
      delay(w8);
   }
   void Bot_move(int a,int b){
-    m.setPWM(a, 0, Bot_d(b));
+    m.setPWM(a, 0, b);
   }
 
   void Bot_still(int timer){
