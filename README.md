@@ -17,8 +17,8 @@
 
 ## The project needs:
 
-1.[ ] Calculations of the power needs for the robot.
-2.[ ] Stress - Relief feather loop, using a *computer* to take care of PID and others...
-3.[ ] Upgrade Structrure design.
-4.[ ] Use interpolation on movement.
-5.[ ]
+1. [ ] Calculations of the power needs for the robot.
+2. [ ] Stress - Relief feather loop, using a *computer* to take care of PID and others...
+3. [ ] Upgrade Structrure design.
+4. [ ] Use interpolation on movement.
+5. [ ]
