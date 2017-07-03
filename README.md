@@ -1,6 +1,6 @@
 # Bot
 
-## A spare time project to control a **6 degree of freedom** robot.:speak_no_evil:
+## A spare time project to control a *6 degree of freedom* robot.:speak_no_evil:
 
 
 ### The specs:
