@@ -18,7 +18,7 @@ void setup() {
 
   //configPID();
 
-  Bot(50);
+  Bot_init(50);
 
   setup_mpu_6050_registers();                                                 //Setup the registers of the MPU-6050 (500dfs / +/-8g) and start the gyro
   currentTime = micros();                                                      //Reset the loop timer

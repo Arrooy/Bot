@@ -4,9 +4,34 @@
 #define SERVOMAX  599
 #define SERVOOFF 4096
 
+typedef struct{
+  int absMax;
+  int absMin;
+  int center;
+  int posX:
+  int posY;
+}Servo;
+
+typedef struct{
+  Servo foot;
+  Servo knee;
+  Servo hip;
+}Left;
+typedef struct{
+  Servo foot;
+  Servo knee;
+  Servo hip;
+}Right;
+
+typedef struct{
+  Left left;
+  Right right;
+}Bot;
+
+
 Adafruit_PWMServoDriver m = Adafruit_PWMServoDriver(); //Obrim wire 0x40
 
-void Bot(int freq) {
+void Bot_init(int freq) {
   m.begin();
   m.setPWMFreq(freq);
 }
