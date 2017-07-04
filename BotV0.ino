@@ -1,8 +1,9 @@
 #include <Wire.h>
 
 #define VBATPIN A9
+#define ControllBattery 0
 
-unsigned long CLOCK  = 9000;   //4000us = 250Hz
+unsigned long CLOCK  = 4000;   //4000us = 250Hz
 
 unsigned long currentTime = 0;
 
@@ -15,7 +16,7 @@ void setup() {
 
   Wire.begin();                                                                  //Start I2C as master
 
-  configPID();
+  //configPID();
 
   Bot(50);
 
@@ -28,24 +29,23 @@ void loop() {
   if(ControllBattery)
     Battery = MeasureBat();
 
-  CalcGyro();
+  CalcGyro(1);
+
+
   reAdjustTimer();
 }
 
 void reAdjustTimer() {
 
+  CLOCK = micros() - currentTime;
+  calculateConstantsGyro();
 
-
-
-
-  //Si tenim gran differencia, actualitzar el clock i despres calculateConstantsGyro();
-  while (micros() - currentTime < CLOCK);
   currentTime = micros();
 }
 
 
-void MeasureBat(){
-  int Bat = analogRead(VBATPIN);
+float MeasureBat(){
+  float Bat = analogRead(VBATPIN);
   Bat *= 6.6;  // Multiply by 3.3V, our reference voltage and we divided by 2, so multiply back
   Bat /= 1024; // convert to voltage
   return Bat;

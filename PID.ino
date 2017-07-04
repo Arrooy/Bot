@@ -1,3 +1,4 @@
+/*
 #include <PID_v1.h>
 
 
@@ -13,13 +14,18 @@ PID Lateral(&Input, &Output, &Setpoint,kp,ki,kd, DIRECT);
 PID Frontal(&Input2, &Output2, &Setpoint2,kp2,ki2,kd2, DIRECT);
 
 
+
+
+
 void configPID(){
   Setpoint = 0;
   Lateral.SetMode(AUTOMATIC);
   Lateral.SetOutputLimits(-90,90);
 }
 
-/*Input = angle_pitch_output;
+Input = angle_pitch_output;
 Lateral.Compute();
 Input2 = angle_roll_output;
-Frontal.Compute();*/
+Frontal.Compute();
+
+*/

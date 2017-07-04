@@ -55,7 +55,7 @@ void setup_mpu_6050_registers(){
 }
 
 
-void CalcGyro(){
+void CalcGyro(int DEBUG_Log){
   read_mpu_6050_data();                                                //Read the raw acc and gyro data from the MPU-6050
   gyro_x -= gyro_x_cal;                                                //Subtract the offset calibration value from the raw gyro_x value
   gyro_y -= gyro_y_cal;                                                //Subtract the offset calibration value from the raw gyro_y value
@@ -92,8 +92,9 @@ void CalcGyro(){
   }
 
   //To dampen the pitch and roll angles a complementary filter is used,
-  angle_pitch_output = angle_pitch_output * 0.9 + angle_pitch * 0.1;   //Take 90% of the output pitch value and add 10% of the raw pitch value
-  angle_roll_output = angle_roll_output * 0.9 + angle_roll * 0.1;      //Take 90% of the output roll value and add 10% of the raw roll value
+  angle_pitch_output = angle_pitch_output * 0.8 + angle_pitch * 0.2;   //Take 90% of the output pitch value and add 10% of the raw pitch value
+  angle_roll_output = angle_roll_output * 0.8 + angle_roll * 0.2;      //Take 90% of the output roll value and add 10% of the raw roll value
+  if(DEBUG_Log)showValues();
   }
 
 void read_mpu_6050_data(){                                             //Subroutine for reading the raw gyro and accelerometer data
@@ -118,3 +119,7 @@ void read_mpu_6050_data(){                                             //Subrout
     calcRaw = 1.0 / ((1.0/(CLOCK / 1000000.0)) * 65.5);
     useRaw = calcRaw * (1.0/ToRadians);
   }
+
+void showValues(){
+  Serial.print("Pitch: ");Serial.print(angle_pitch_output);Serial.print(" Roll: ");Serial.println(angle_roll_output);
+}
