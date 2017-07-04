@@ -1,4 +1,5 @@
 #include <Wire.h>
+#include "data.h"
 
 #define VBATPIN A9
 #define ControllBattery 0
@@ -9,13 +10,14 @@ unsigned long currentTime = 0;
 
 float Battery = 0.0;
 
+Bot bot;
 
 void setup() {
 
   Serial.begin(57600);
 
   Wire.begin();                                                                  //Start I2C as master
-
+  pinMode(INPUT,A0);
   //configPID();
 
   Bot_init(50);
@@ -23,13 +25,13 @@ void setup() {
   setup_mpu_6050_registers();                                                 //Setup the registers of the MPU-6050 (500dfs / +/-8g) and start the gyro
   currentTime = micros();                                                      //Reset the loop timer
 }
-
+long Angle = 0;
 void loop() {
 
   if(ControllBattery)
     Battery = MeasureBat();
 
-  CalcGyro(1);
+  CalcGyro(0);
 
 
   reAdjustTimer();

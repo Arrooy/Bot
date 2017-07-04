@@ -20,6 +20,7 @@ float ToRadians;
 
 
 void setup_mpu_6050_registers(){
+  Serial.println("Starting MPU-6050");
   //Activate the MPU-6050
   Wire.beginTransmission(0x68);                                                 //Start communicating with the MPU-6050
   Wire.write(0x6B);                                                             //Send the requested starting register
@@ -50,6 +51,7 @@ void setup_mpu_6050_registers(){
   gyro_z_cal /= numberOftimesCalibrated;                                                  //Divide the gyro_z_cal variable by 2000 to get the avarage offset
 
   calculateConstantsGyro();
+  Serial.println("MPU-6050 Calibrated!");
 }
 
 
