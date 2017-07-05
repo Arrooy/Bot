@@ -25,7 +25,8 @@ void setup() {
   setup_mpu_6050_registers();                                                 //Setup the registers of the MPU-6050 (500dfs / +/-8g) and start the gyro
   currentTime = micros();                                                      //Reset the loop timer
 }
-long Angle = 0;
+
+
 void loop() {
 
   if(ControllBattery)
@@ -33,6 +34,8 @@ void loop() {
 
   CalcGyro(0);
 
+  Input = angle_pitch_output;
+  Lateral.Compute();
 
   reAdjustTimer();
 }
