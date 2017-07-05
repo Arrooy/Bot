@@ -12,15 +12,19 @@ float Battery = 0.0;
 
 Bot bot;
 
+
+
 void setup() {
 
   Serial.begin(57600);
 
   Wire.begin();                                                                  //Start I2C as master
-  pinMode(INPUT,A0);
-  //configPID();
+  
+  configPID();
 
   Bot_init(50);
+
+  configPID();
 
   setup_mpu_6050_registers();                                                 //Setup the registers of the MPU-6050 (500dfs / +/-8g) and start the gyro
   currentTime = micros();                                                      //Reset the loop timer
@@ -32,10 +36,17 @@ void loop() {
   if(ControllBattery)
     Battery = MeasureBat();
 
-  CalcGyro(0);
+  CalcGyro(1);
 
-  Input = angle_pitch_output;
-  Lateral.Compute();
+  if(PID_compute()){
+    initialPositionFoot();
+  }
+/*
+if(Serial.available()>0){
+  PID_adjustSetpoint(Serial.read());
+}*/
+
+
 
   reAdjustTimer();
 }

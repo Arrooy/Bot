@@ -20,20 +20,11 @@ void Bot_init(int freq) {
   m.setPWMFreq(freq);
   fillVars();
   InitialPosition();
-  ShutDown_Servos();
+  //ShutDown_Servos();
 }
 
 void Move_Servo(int a,int b){
-  //m.setPWM(a, 0, ToServoUnits(b));
   m.setPWM(a, 0, b);
-}
-void Move_Servox(int a,int b){
-  //m.setPWM(a, 0, ToServoUnits(b));
-  m.setPWM(a, b, 0);
-}
-
-int ToServoUnits(int a){
-  return int(map(a,0,180,SERVOMIN,SERVOMAX));
 }
 
 void ShutDown_Servos(){
@@ -107,4 +98,12 @@ void InitialPosition(){
   Move_Servo(bot.right.foot.pin,bot.right.foot.center);
   Move_Servo(bot.right.knee.pin,bot.right.knee.center);
   Move_Servo(bot.right.hip.pin,bot.right.hip.center);
+}
+void initialPositionFoot(){
+  Move_Servo(bot.left.foot.pin,bot.left.foot.center);
+  Move_Servo(bot.right.foot.pin,bot.right.foot.center);
+}
+void PID_Corrections(int output){
+  Move_Servo(bot.right.foot.pin,map(output,-90,90,100,400));
+  Move_Servo(bot.left.foot.pin,map(output,-90,90,100,400));
 }
