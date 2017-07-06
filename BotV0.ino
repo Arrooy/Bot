@@ -1,6 +1,8 @@
 #include <Wire.h>
 #include "data.h"
 
+
+
 #define VBATPIN A9
 #define ControllBattery 0
 
@@ -12,14 +14,15 @@ float Battery = 0.0;
 
 Bot bot;
 
+unsigned long temporizadorDreta = 0,temporizadorRecuperasio= 0;
 
-
+int oneTime = 1;
 void setup() {
 
   Serial.begin(57600);
 
   Wire.begin();                                                                  //Start I2C as master
-  
+
   configPID();
 
   Bot_init(50);
@@ -28,25 +31,32 @@ void setup() {
 
   setup_mpu_6050_registers();                                                 //Setup the registers of the MPU-6050 (500dfs / +/-8g) and start the gyro
   currentTime = micros();                                                      //Reset the loop timer
+  temporizadorDreta = millis();
+  temporizadorRecuperasio = millis();
 }
 
-
 void loop() {
-
   if(ControllBattery)
     Battery = MeasureBat();
 
   CalcGyro(1);
 
-  if(PID_compute()){
-    initialPositionFoot();
+  if(millis() - temporizadorDreta >= 5000){
+
+    InclinarseDreta(oneTime);
+    oneTime = 0;
+    if(millis() - temporizadorRecuperasio >= 200){
+      Move_Servo(bot.left.foot.pin,bot.right.foot.center);
+    }
+    //-31 en pitch
+  }else{
+    temporizadorRecuperasio = millis();
+    if(PID_compute()){
+      initialPositionFoot();
+    }
   }
-/*
-if(Serial.available()>0){
-  PID_adjustSetpoint(Serial.read());
-}*/
 
-
+//PID_adjustSetpoint();
 
   reAdjustTimer();
 }

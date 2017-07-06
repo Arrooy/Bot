@@ -47,6 +47,7 @@ void Dance(int timer){
 }
 void fillVars(){
   bot.left.foot.center = 250;
+  bot.left.foot.center = 250;
   bot.left.foot.absMin = 100;
   bot.left.foot.absMax = 400;
   bot.left.foot.pin = 6;
@@ -88,6 +89,15 @@ void fillVars(){
   bot.right.hip.pin = 3;
   bot.right.hip.posY = 2;
   bot.right.hip.posX = 0;
+
+
+  bot.left.foot.actualPos = 250;
+  bot.right.foot.actualPos = 250;
+  bot.left.knee.actualPos = 250;
+  bot.right.knee.actualPos = 250;
+  bot.left.hip.actualPos = 250;
+  bot.right.hip.actualPos = 250;
+
 }
 
 
@@ -106,4 +116,18 @@ void initialPositionFoot(){
 void PID_Corrections(int output){
   Move_Servo(bot.right.foot.pin,map(output,-90,90,100,400));
   Move_Servo(bot.left.foot.pin,map(output,-90,90,100,400));
+}
+
+
+
+void InclinarseDreta(int oneTime){
+  if(oneTime){
+    Move_Servo(bot.left.foot.pin,bot.right.foot.absMax);
+    Move_Servo(bot.right.foot.pin,bot.right.foot.center-50);
+  }
+}
+void InclinarseEsquerra(){
+
+  Move_Servo(bot.left.foot.pin,bot.right.foot.absMax);
+  Move_Servo(bot.right.foot.pin,bot.right.foot.center-50);
 }

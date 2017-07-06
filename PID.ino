@@ -26,25 +26,17 @@ void configPID(){
 }
 int PID_compute(){
   int OnlyOneReturn = 0;
-  if(angle_pitch_output > 3 || angle_pitch_output < -3){
+  if(angle_pitch_output > Setpoint + 2 || angle_pitch_output <  Setpoint - 2){
     Input = angle_pitch_output;
     Lateral.Compute();
-    Serial.println(Output);
     PID_Corrections(int(Output));
     OnlyOneReturn = 0;
   }else{
     OnlyOneReturn = 1;
   }
-}/*
+  return OnlyOneReturn;
+}
 
-void PID_adjustSetpoint(char data){
-  bigData *= 10;
-  if(data == m){
-    Setpoint = data
-  }else if(data == z){
-    Setpoint = 0;
-    bigData = 0;
-  }
-
-
-}*/
+void PID_adjustSetpoint(int data){
+  Setpoint = data;
+}

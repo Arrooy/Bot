@@ -5,6 +5,7 @@ typedef struct{
   int posX;
   int posY;
   int pin;
+  int actualPos;
 }Servo;
 
 typedef struct{
