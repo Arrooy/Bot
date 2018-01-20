@@ -1,6 +1,6 @@
 # Bot
 
-## *6 degree of freedom* Robot:
+## A *6 degree of freedom* robot:
 
 
 ### The specs:
